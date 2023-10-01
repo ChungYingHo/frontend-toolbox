@@ -105,9 +105,7 @@ export default function Input({
     // 轉換hex to rgb
     const handleHex = (event) => {
         const inputHex = event.target.value
-        console.log(inputHex)
         const newHex = convertToRGB(inputHex)
-        console.log('new', newHex)
         if (newHex) {
             setR(parseFloat(newHex.updatedR))
             setG(parseFloat(newHex.updatedG))

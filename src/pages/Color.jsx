@@ -95,6 +95,10 @@ export default function Color(){
                         setG={setGvalue}
                         setB={setBvalue}
                         setO={setOvalue}
+                        setRDisplay={setRDisplay}
+                        setGDisplay={setGDisplay}
+                        setBDisplay={setBDisplay}
+                        setODisplay={setODisplay}
                         value={hex}/>
                     <Input
                         text
