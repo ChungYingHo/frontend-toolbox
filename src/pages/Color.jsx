@@ -86,17 +86,67 @@ export default function Color(){
                         <h4>Color Converter</h4>
                         <p>Here, you can experiment with various color conversions, including RGB to Hex or Hex to RGB.</p>
                     </Des>
-                    <PhoneCanvas color={{ rValue, gValue, bValue, oValue }}/>
-                    <Input color label={'Choose the color:'} setR={setRvalue} setG={setGvalue} setB={setBvalue} setO={setOvalue} hex={hex}/>
-                    <Input text label={'Hex:'} value={hex} setHex={setHex} r={rValue} g={gValue} b={bValue} setR={setRvalue} setG={setGvalue} setB={setBvalue} setO={setOvalue} placeholder={`ex: ${hex}`}/>
-                    <Input min={0} max={255} label={'Red:'} value={rValue} set={setRvalue}/>
-                    <Input min={0} max={255} label={'Green:'} value={gValue} set={setGvalue}/>
-                    <Input min={0} max={255} label={'Blue:'} value={bValue} set={setBvalue}/>
-                    <Input min={0} max={1} step={0.1} label={'Opacity:'} value={oValue} set={setOvalue}/>
+                    <PhoneCanvas
+                        color={{ rValue, gValue, bValue, oValue }}/>
+                    <Input
+                        color
+                        label={'Choose the color:'}
+                        setR={setRvalue}
+                        setG={setGvalue}
+                        setB={setBvalue}
+                        setO={setOvalue}
+                        value={hex}/>
+                    <Input
+                        text
+                        label={'Hex:'}
+                        value={hex}
+                        setHex={setHex}
+                        r={rValue}
+                        g={gValue}
+                        b={bValue}
+                        setR={setRvalue}
+                        setG={setGvalue}
+                        setB={setBvalue}
+                        setO={setOvalue}
+                        setRDisplay={setRDisplay}
+                        setGDisplay={setGDisplay}
+                        setBDisplay={setBDisplay}
+                        setODisplay={setODisplay}
+                        placeholder={`ex: ${hex}`}/>
+                    <Input
+                        min={0}
+                        max={255}
+                        label={'Red:'}
+                        value={rDisplay}
+                        set={setRvalue}
+                        setDisplay={setRDisplay}/>
+                    <Input
+                        min={0}
+                        max={255}
+                        label={'Green:'}
+                        value={gDisplay}
+                        set={setGvalue}
+                        setDisplay={setGDisplay}/>
+                    <Input
+                        min={0}
+                        max={255}
+                        label={'Blue:'}
+                        value={bDisplay}
+                        set={setBvalue}
+                        setDisplay={setBDisplay}/>
+                    <Input
+                        min={0}
+                        max={1}
+                        step={0.1}
+                        label={'Opacity:'}
+                        value={oValue}
+                        set={setOvalue}
+                        setDisplay={setODisplay}/>
                 </Inputs>
                 <Inputs>
                     <CanvasContainer>
-                        <Canvas color={{ rValue, gValue, bValue, oValue }}/>
+                        <Canvas
+                            color={{ rValue, gValue, bValue, oValue }}/>
                     </CanvasContainer>
                     <Input text label={'Hex code:'} disabled={true} displayValue={hex}/>
                     <Input text label={'RGB code:'} disabled={true} displayValue={`rgb(${rValue}, ${gValue}, ${bValue})`}/>

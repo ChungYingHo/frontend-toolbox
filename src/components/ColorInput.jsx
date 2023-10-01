@@ -66,22 +66,41 @@ export default function Input({
     disabled,
     displayValue,
     color,
-    hex}){
+    setDisplay,
+    setRDisplay,
+    setGDisplay,
+    setBDisplay,
+    setODisplay
+}){
     // 連動拉條
     const handleNumber = (event) => {
         const newValue = parseFloat(event.target.value)
-        if(newValue > 255){
-            set(255)
-        }else if(newValue < 0 || isNaN(newValue)){
+        if(isNaN(newValue)){
             set(0)
+            setDisplay('')
         }else{
-            set(newValue)
+            if(newValue > 255){
+                set(255)
+                setDisplay(255)
+            }else if(newValue < 0){
+                set(0)
+            }else{
+                set(newValue)
+                setDisplay(newValue)
+            }
         }
     }
+
+    const handleBlur = () => {
+    if (value === '') {
+        setDisplay(0)
+    }
+}
 
     const handleRange = (event) => {
         const newValue = parseFloat(event.target.value)
         set(newValue)
+        setDisplay(newValue)
     }
     // 轉換hex to rgb
     const handleHex = (event) => {
@@ -94,12 +113,20 @@ export default function Input({
             setG(parseFloat(newHex.updatedG))
             setB(parseFloat(newHex.updatedB))
             setO(1)
+            setRDisplay(parseFloat(newHex.updatedR))
+            setGDisplay(parseFloat(newHex.updatedG))
+            setBDisplay(parseFloat(newHex.updatedB))
+            setODisplay(1)
         }
         if(inputHex === ''){
             setR(0)
             setG(0)
             setB(0)
             setO(1)
+            setRDisplay(0)
+            setGDisplay(0)
+            setBDisplay(0)
+            setODisplay(1)
         }
     }
     return(
@@ -110,7 +137,7 @@ export default function Input({
                 (<ColorInput
                     type="color"
                     onChange={handleHex}
-                    value={hex}/>)
+                    value={value}/>)
                 :
                     (text ?
                         (
@@ -133,7 +160,8 @@ export default function Input({
                                     max={max}
                                     step={step}
                                     value={value}
-                                    onChange={handleNumber}/>
+                                    onChange={handleNumber}
+                                    onBlur={handleBlur}/>
                                 <RangeInput
                                     min={min}
                                     max={max}
