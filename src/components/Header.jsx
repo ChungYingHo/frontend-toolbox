@@ -64,6 +64,7 @@ function Header() {
                 <Ul>
                     <Li onClick={()=>navigate('/color-converter')} $isActive={location.pathname.startsWith('/color')}>Color Converter</Li>
                     <Li onClick={()=>navigate('/box-shadow')} $isActive={location.pathname.startsWith('/box')}>Box Shadow</Li>
+                    <Li onClick={()=>navigate('/drop-shadow')} $isActive={location.pathname.startsWith('/drop')}>Drop Shadow</Li>
                 </Ul>
             </Nav>
             </Navbar.Collapse>

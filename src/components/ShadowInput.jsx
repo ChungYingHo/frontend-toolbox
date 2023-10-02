@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import * as styles from '../common/common.styled'
 import { Form } from "react-bootstrap";
 import Copy from './Copy'
 import { copyText } from '../utils/copy'
@@ -48,39 +49,74 @@ const TextInput = styled(Form.Control)`
 const ColorInput = styled(Form.Control)`
     /* outline: red solid 2px; */
 `
+const CheckInput = styled(Form.Check)`
+    /* outline: red solid 2px; */
+`
 
-export default function Input({
-    min,
+export default function Input(
+    {min,
     max,
-    label,
     step,
     value,
+    label,
+    color,
     set,
-    text,
-    placeholder,
+    setDisplay,
     setR,
     setG,
     setB,
     setO,
     disabled,
     displayValue,
-    color,
-    setDisplay,
-    setRDisplay,
-    setGDisplay,
-    setBDisplay,
-    setODisplay
-}){
-    // 連動拉條
-    const handleNumber = (event) => {
+    text,
+    placeholder,
+    shadow,
+    opacity,
+    check}
+){
+    const handleShadowNumber = (event) => {
         const newValue = parseFloat(event.target.value)
         if(isNaN(newValue)){
             set(0)
             setDisplay('')
         }else{
-            if(newValue > 255){
-                set(255)
-                setDisplay(255)
+            if(newValue > 150){
+                set(150)
+                setDisplay(150)
+            }else if(newValue < -150){
+                set(-150)
+            }else{
+                set(newValue)
+                setDisplay(newValue)
+            }
+        }
+    }
+    const handleOtherNumber = (event) => {
+        const newValue = parseFloat(event.target.value)
+        if(isNaN(newValue)){
+            set(0)
+            setDisplay('')
+        }else{
+            if(newValue > 150){
+                set(150)
+                setDisplay(150)
+            }else if(newValue < 0){
+                set(0)
+            }else{
+                set(newValue)
+                setDisplay(newValue)
+            }
+        }
+    }
+    const handleOpacityNumber = (event) => {
+        const newValue = parseFloat(event.target.value)
+        if(isNaN(newValue)){
+            set(1)
+            setDisplay('')
+        }else{
+            if(newValue > 1){
+                set(1)
+                setDisplay(1)
             }else if(newValue < 0){
                 set(0)
             }else{
@@ -95,13 +131,19 @@ export default function Input({
             setDisplay(0)
         }
     }
+    const handleBlurOpacity = () => {
+        if (value === '') {
+            setDisplay(1)
+            set(1)
+        }
+    }
 
     const handleRange = (event) => {
         const newValue = parseFloat(event.target.value)
         set(newValue)
         setDisplay(newValue)
     }
-    // 轉換hex to rgb
+
     const handleHex = (event) => {
         const inputHex = event.target.value
         const newHex = convertToRGB(inputHex)
@@ -109,22 +151,17 @@ export default function Input({
             setR(parseFloat(newHex.updatedR))
             setG(parseFloat(newHex.updatedG))
             setB(parseFloat(newHex.updatedB))
-            setO(1)
-            setRDisplay(parseFloat(newHex.updatedR))
-            setGDisplay(parseFloat(newHex.updatedG))
-            setBDisplay(parseFloat(newHex.updatedB))
-            setODisplay(1)
         }
         if(inputHex === ''){
             setR(0)
             setG(0)
             setB(0)
-            setO(1)
-            setRDisplay(0)
-            setGDisplay(0)
-            setBDisplay(0)
-            setODisplay(1)
         }
+    }
+
+    const handleCheck = (event)=>{
+        const inputChecked = event.target.checked
+        set(inputChecked)
     }
     return(
         <Container $color={color}>
@@ -133,8 +170,7 @@ export default function Input({
                 {color ?
                 (<ColorInput
                     type="color"
-                    onChange={handleHex}
-                    value={value}/>)
+                    onChange={handleHex}/>)
                 :
                     (text ?
                         (
@@ -149,23 +185,28 @@ export default function Input({
                             </>
                         )
                         :
-                        (
-                            <>
+                        (check ?
+                            (
+                                <CheckInput type="switch" label='Inset' onChange={handleCheck}/>
+                            )
+                            :
+                            (<>
                                 <NumberInput
                                     type="number"
                                     min={min}
                                     max={max}
                                     step={step}
                                     value={value}
-                                    onChange={handleNumber}
-                                    onBlur={handleBlur}/>
+                                    onChange={shadow ? handleShadowNumber :
+                                        (opacity ? handleOpacityNumber : handleOtherNumber)}
+                                    onBlur={opacity ? handleBlurOpacity : handleBlur}/>
                                 <RangeInput
                                     min={min}
                                     max={max}
                                     step={step}
                                     value={value}
                                     onChange={handleRange}/>
-                            </>
+                            </>)
                         )
                     )
                 }
