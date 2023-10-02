@@ -76,7 +76,7 @@ export default function Color(){
     const [rDisplay, setRDisplay] = useState(0)
     const [gDisplay, setGDisplay] = useState(0)
     const [bDisplay, setBDisplay] = useState(0)
-    const [oDisplay, setODisplay] = useState(0)
+    const [oDisplay, setODisplay] = useState(1)
     
     useEffect(()=>{
         setHex(`#${convertToHex(rValue)}${convertToHex(gValue)}${convertToHex(bValue)}`)
