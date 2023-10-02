@@ -4,10 +4,21 @@ import Input from "../components/ShadowInput";
 import { useState } from "react";
 
 const Container = styled(styles.StyledContainer)`
-    outline: black solid 2px;
     display: flex;
     justify-content: space-between;
     padding: 0;
+
+    @media (max-width: 900px){
+        flex-direction: column;
+    }
+`
+const Des = styled.div`
+    width: 100%;
+    flex: 1;
+    margin: 0.5rem 0;
+    p{
+        margin: 0;
+    }
 `
 const Inputs = styled.div`
     width: 47.5%;
@@ -41,6 +52,18 @@ const Canvas = styled.div`
     margin: 10rem;
     box-shadow: ${props => props.$xShadow}px ${props => props.$yShadow}px ${props => props.$blurNum}px ${props => props.$spreadNum}px rgba(${props => props.$rValue}, ${props => props.$gValue}, ${props => props.$bValue}, ${props => props.$oValue}) ${props => props.$inset ? 'inset' : ''};
 `
+const PhoneCanvas = styled.div`
+    border: darkgray solid 2px;
+    width: 50%;
+    height: 20vh;
+    margin: 5rem auto;
+    box-shadow: ${props => props.$xShadow}px ${props => props.$yShadow}px ${props => props.$blurNum}px ${props => props.$spreadNum}px rgba(${props => props.$rValue}, ${props => props.$gValue}, ${props => props.$bValue}, ${props => props.$oValue}) ${props => props.$inset ? 'inset' : ''};
+    display: none;
+
+    @media (max-width: 900px){
+        display: block;
+    }
+`
 
 export default function Shadow(){
     const [xShadow, setXShadow] = useState(0)
@@ -51,7 +74,7 @@ export default function Shadow(){
     const [gValue, setGvalue] = useState(0)
     const [bValue, setBvalue] = useState(0)
     const [oValue, setOvalue] = useState(1)
-    const [inset, setInset] = useState(true)
+    const [inset, setInset] = useState(false)
     const [xDisplay, setXDisplay] = useState(0)
     const [yDisplay, setYDisplay] = useState(0)
     const [blurDisplay, setBlurDisplay] = useState(0)
@@ -61,8 +84,22 @@ export default function Shadow(){
         <>
             <Container>
                 <Inputs>
+                    <Des>
+                        <h4>Box Shadow</h4>
+                        <p>Here, you can experiment the box shadow.</p>
+                    </Des>
+                    <PhoneCanvas
+                        $xShadow={xShadow}
+                        $yShadow={yShadow}
+                        $blurNum={blurNum}
+                        $spreadNum={spreadNum}
+                        $rValue={rValue}
+                        $gValue={gValue}
+                        $bValue={bValue}
+                        $oValue={oValue}
+                        $inset={inset}/>
                     <Input
-                        label={'x-offset'}
+                        label={'X-Offset (-150px ~ 150px)'}
                         value={xDisplay}
                         min={-150}
                         max={150}
@@ -71,7 +108,7 @@ export default function Shadow(){
                         setDisplay={setXDisplay}
                         shadow/>
                     <Input
-                        label={'y-offset'}
+                        label={'Y-Offset (-150px ~ 150px)'}
                         value={yDisplay}
                         min={-150}
                         max={150}
@@ -80,7 +117,7 @@ export default function Shadow(){
                         setDisplay={setYDisplay}
                         shadow/>
                     <Input
-                        label={'blur-radius'}
+                        label={'Blur-radius (0px ~ 150px)'}
                         value={blurDisplay}
                         min={0}
                         max={150}
@@ -88,7 +125,7 @@ export default function Shadow(){
                         set={setBlurNum}
                         setDisplay={setBlurDisplay}/>
                     <Input
-                        label={'spread-radius'}
+                        label={'spread-radius (-150px ~ 150px)'}
                         value={spreadDisplay}
                         min={-150}
                         max={150}
@@ -107,7 +144,7 @@ export default function Shadow(){
                         min={0}
                         max={1}
                         step={0.1}
-                        label={'Shadow opacity:'}
+                        label={'Shadow opacity (0~1):'}
                         value={oDisplay}
                         set={setOvalue}
                         setDisplay={setODisplay}
@@ -129,7 +166,7 @@ export default function Shadow(){
                             $oValue={oValue}
                             $inset={inset}/>
                     </CanvasContainer>
-                    <Input text label={'box shadow code:'} disabled={true} displayValue={`box-shadow: ${xShadow}px ${yShadow}px ${blurNum}px ${spreadNum}px rgba(${rValue}, ${gValue}, ${bValue}, ${oValue}) ${inset ? 'inset' : ''}`}/>
+                    <Input text label={'box shadow code:'} disabled={true} displayValue={`box-shadow: ${xShadow}px ${yShadow}px ${blurNum}px ${spreadNum}px rgba(${rValue}, ${gValue}, ${bValue}, ${oValue}) ${inset ? 'inset' : ''};`}/>
                 </Inputs>
             </Container>
         </>

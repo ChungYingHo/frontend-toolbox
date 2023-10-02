@@ -69,7 +69,8 @@ export default function Input({
     setRDisplay,
     setGDisplay,
     setBDisplay,
-    setODisplay
+    setODisplay,
+    opacity
 }){
     // 連動拉條
     const handleNumber = (event) => {
@@ -89,10 +90,33 @@ export default function Input({
             }
         }
     }
+    const handleOpacityNumber = (event) => {
+        const newValue = parseFloat(event.target.value)
+        if(isNaN(newValue)){
+            set(1)
+            setDisplay('')
+        }else{
+            if(newValue > 1){
+                set(1)
+                setDisplay(1)
+            }else if(newValue < 0){
+                set(0)
+            }else{
+                set(newValue)
+                setDisplay(newValue)
+            }
+        }
+    }
 
     const handleBlur = () => {
         if (value === '') {
             setDisplay(0)
+        }
+    }
+    const handleBlurOpacity = () => {
+        if (value === '') {
+            setDisplay(1)
+            set(1)
         }
     }
 
@@ -157,8 +181,8 @@ export default function Input({
                                     max={max}
                                     step={step}
                                     value={value}
-                                    onChange={handleNumber}
-                                    onBlur={handleBlur}/>
+                                    onChange={opacity ? handleOpacityNumber : handleNumber}
+                                    onBlur={opacity ? handleBlurOpacity : handleBlur}/>
                                 <RangeInput
                                     min={min}
                                     max={max}

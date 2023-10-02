@@ -16,7 +16,10 @@ const Container = styled(styles.StyledContainer)`
 const Des = styled.div`
     width: 100%;
     flex: 1;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
+    p{
+        margin: 0;
+    }
 `
 const CanvasContainer = styled.div`
     flex: 1;
@@ -120,21 +123,21 @@ export default function Color(){
                     <Input
                         min={0}
                         max={255}
-                        label={'Red:'}
+                        label={'Red (0~255):'}
                         value={rDisplay}
                         set={setRvalue}
                         setDisplay={setRDisplay}/>
                     <Input
                         min={0}
                         max={255}
-                        label={'Green:'}
+                        label={'Green (0~255):'}
                         value={gDisplay}
                         set={setGvalue}
                         setDisplay={setGDisplay}/>
                     <Input
                         min={0}
                         max={255}
-                        label={'Blue:'}
+                        label={'Blue (0~255):'}
                         value={bDisplay}
                         set={setBvalue}
                         setDisplay={setBDisplay}/>
@@ -142,10 +145,11 @@ export default function Color(){
                         min={0}
                         max={1}
                         step={0.1}
-                        label={'Opacity:'}
-                        value={oValue}
+                        label={'Opacity (0~1):'}
+                        value={oDisplay}
                         set={setOvalue}
-                        setDisplay={setODisplay}/>
+                        setDisplay={setODisplay}
+                        opacity/>
                 </Inputs>
                 <Inputs>
                     <CanvasContainer>
@@ -153,8 +157,8 @@ export default function Color(){
                             color={{ rValue, gValue, bValue, oValue }}/>
                     </CanvasContainer>
                     <Input text label={'Hex code:'} disabled={true} displayValue={hex}/>
-                    <Input text label={'RGB code:'} disabled={true} displayValue={`rgb(${rValue}, ${gValue}, ${bValue})`}/>
-                    <Input text label={'RGBA code:'} disabled={true} displayValue={`rgba(${rValue}, ${gValue}, ${bValue}, ${oValue})`}/>
+                    <Input text label={'RGB code:'} disabled={true} displayValue={`rgb(${rValue}, ${gValue}, ${bValue});`}/>
+                    <Input text label={'RGBA code:'} disabled={true} displayValue={`rgba(${rValue}, ${gValue}, ${bValue}, ${oValue});`}/>
                 </Inputs>
             </Container>
         </>
